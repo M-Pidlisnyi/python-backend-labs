@@ -6,9 +6,19 @@ from django.utils import timezone
 
 class Category(models.Model):
     category = models.CharField('Category', max_length=255, help_text="Max 255 characters length")
+    slug = models.SlugField('Slug') 
+    objects = models.Manager()
 
     def __str__(self):
         return self.category
+
+    def get_absolute_url(self):
+        try:
+            url = reverse('articles-category-list', kwargs={'slug': self.slug})
+        except:
+            url = "/" 
+        return url
+
 
     class Meta:
         verbose_name = "Article category"

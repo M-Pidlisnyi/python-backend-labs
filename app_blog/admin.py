@@ -5,8 +5,8 @@ from .forms import ArticleImageForm
 # Register your models here.
 
 class CategoryAdmin(admin.ModelAdmin): 
-    list_display = ('category',) 
-    fieldsets = (('', {'fields': ('category', ),}),)
+    list_display = ('category', 'slug') 
+    fieldsets = (('', {'fields': ('category', 'slug'),}),)
 admin.site.register(Category, CategoryAdmin)
 
 class ArticleImageInline(admin.TabularInline): 
