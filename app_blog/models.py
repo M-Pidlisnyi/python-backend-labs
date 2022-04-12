@@ -12,13 +12,14 @@ class Category(models.Model):
 
     class Meta:
         verbose_name = "Article category"
+        verbose_name_plural = "Articles categories"
     
 class Article(models.Model):
     title = models.CharField("Title", max_length=127, help_text="Max 127 characters length")
-    descrition = models.CharField("Article description", 
+    description = models.CharField("Article description", 
                                    max_length=512, blank=True, null=True)
 
-    publication_date = models.DateField("Date of publication", default=timezone.now())
+    publication_date = models.DateField("Date of publication", default=timezone.now)
     slug = models.SlugField("Slug", unique_for_date='publication_date')
 
     main_page = models.BooleanField("Main page", default=False, help_text="Show on main page")
@@ -46,7 +47,7 @@ class Article(models.Model):
     class Meta:
         ordering = ['-publication_date']
         verbose_name = "Article"
-        verbose_name_plural = "Aticles"
+        verbose_name_plural = "Articles"
 
 
 class ArticleImage(models.Model):
