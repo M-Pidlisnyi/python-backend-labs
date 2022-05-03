@@ -1,20 +1,25 @@
-<!DOCTYPE html>
-<html lang="uk">
-    <head>
-        <meta http-equiv="Content-Type" content="text/html" charset="utf-8" />
-        <title>Blog</title>
-    </head>
-    <body>
-        Категорії
-        {% if categories %}
-            {% for item in categories %}
-                <div>
-                    <a href="{{ item.get_absolute_url }}"><h4>{{ item.category }}</h4></a>
-                </div>
-            {% endfor %}
-        {% endif %}
-        {% if articles %}
-            {% for item in articles %}
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+{% spaceless %}
+    <h2>Категорії<h2>
+    {% if categories %}
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <ul class="navbar-nav">
+        {% for item in categories %}
+            <li class="nav-item">
+            <div>
+                <a href="{{ item.get_absolute_url }}"><h4>{{ item.category }}</h4></a>
+            </div>
+            </li>
+        {% endfor %}
+        </ul>
+    </nav>
+    {% endif %}
+    {% if articles %}
+        <ul class="list-group">
+        {% for item in articles %}
+            <li class="list-group-item">
                 <div>
                     <a href="{{ item.get_absolute_url }}"><h4>{{ item.title }}</h4></a>
                     <h5>{{ item.pub_date|date:"j E Y"|safe|linebreaks }}</h5>
@@ -22,10 +27,13 @@
                         {{ item.description|safe|escape|striptags|truncatewords_html:32 }}
                     </p>
                 </div>
-            {% endfor %}
-        {% endif %}
-        <a href="{% url 'articles-list' %}">
+            </li>
+        {% endfor %}
+        </ul>
+    {% endif %}
+    <a href="{% url 'articles-list' %}">
         <h4>Всі публікації</h4>
-        </a>
-    </body>
-</html>
+    </a>
+{% endspaceless %}
+{% endblock %}
+
